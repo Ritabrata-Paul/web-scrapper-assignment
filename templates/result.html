@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scraped Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Scraped Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Rating</th>
+                <th>Number of Reviews</th>
+                <th>Description</th>
+                <th>ASIN</th>
+                <th>Manufacturer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product['Product Name'] }}</td>
+                <td>{{ product['Product Price'] }}</td>
+                <td>{{ product['Rating'] }}</td>
+                <td>{{ product['Number of Reviews'] }}</td>
+                <td>{{ product['Description'] }}</td>
+                <td>{{ product['ASIN'] }}</td>
+                <td>{{ product['Manufacturer'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

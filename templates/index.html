@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amazon Scraper</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <h1>Amazon Scraper</h1>
+    <form id="scrapeForm" method="POST" action="/">
+        <input type="text" id="urlInput" name="url" placeholder="Enter Amazon URL" required>
+        <input type="submit" value="Scrape">
+    </form>
+    <div id="resultContainer"></div>
+
+    <script>
+        // AJAX request function
+        function sendAjaxRequest(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.send();
+        }
+
+        // Handle form submission
+        document.getElementById("scrapeForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var url = document.getElementById("urlInput").value;
+            sendAjaxRequest("/", function (response) {
+                var resultContainer = document.getElementById("resultContainer");
+                resultContainer.innerHTML = response;
+            });
+        });
+    </script>
+</body>
+</html>
